@@ -1,0 +1,49 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("com.google.gms.google-services") // Googleサービスプラグインを追加
+}
+
+android {
+    namespace = "com.example.app" // 自分のアプリのIDに変更
+    compileSdk = 33  // Flutterから取得した最新のバージョンに変更
+    ndkVersion = "21.4.7075529"  // Flutterで指定されたバージョンに変更
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.example.app" // 自分のアプリのIDに変更
+        minSdk = 21 // FlutterのminSdkVersionに合わせる
+        targetSdk = 33 // FlutterのtargetSdkVersionに合わせる
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.release  // リリース用の署名設定
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Firebase BoMをインポート
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    // Firebase Analyticsの依存関係を追加
+    implementation("com.google.firebase:firebase-analytics")
+
+    // 他のFirebase製品の依存関係も追加可能
+    // 例: implementation("com.google.firebase:firebase-auth") など
+}
